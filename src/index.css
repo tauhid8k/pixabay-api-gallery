@@ -17,3 +17,41 @@ body {
   height: 230px;
   object-fit: cover;
 }
+
+/* Pagination */
+.pagination {
+  width: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  border-radius: 4px;
+  gap: 10px;
+  margin: 0 auto;
+}
+
+.pagination-item,
+.paginate-previous,
+.paginate-next {
+  min-width: 40px;
+  min-height: 40px;
+  padding: 0 10px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  border-radius: 999px;
+  font-weight: 500;
+  box-shadow: 0 1px 0px 0px #0000001f, 0 0 #0000001f;
+}
+
+.pagination-item + .pagination-item {
+  border-right: none;
+}
+
+.paginate-active {
+  outline: 1.5px solid teal;
+}
+
+.paginate-link-active {
+  color: teal;
+}
