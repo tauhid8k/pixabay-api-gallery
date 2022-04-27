@@ -2,7 +2,11 @@ import React from 'react';
 
 const SearchInput = ({ inputHandler }) => {
   return (
-    <form onSubmit={inputHandler} className='mb-8 text-center'>
+    <form
+      onSubmit={inputHandler}
+      className='mb-8 text-center'
+      autoComplete='off'
+    >
       <input
         type='text'
         name='query'

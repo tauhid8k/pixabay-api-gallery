@@ -16,10 +16,11 @@ const Items = () => {
         `https://pixabay.com/api/?key=${API_KEY}&q=${query}&per_page=21`
       );
       setItems(data.hits);
+      console.log(data);
     };
     fetchItems();
     setLoading(false);
-  }, [API_KEY, query, items]);
+  }, [API_KEY, query]);
 
   const inputHandler = (e) => {
     e.preventDefault();
