@@ -11,7 +11,8 @@ const Items = () => {
   const [query, setQuery] = useState('');
 
   // Loading Items
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [items, setItems] = useState([]);
 
   // Pagination
@@ -20,14 +21,21 @@ const Items = () => {
 
   useEffect(() => {
     const fetchItems = async () => {
+      setLoading(true);
       const { data } = await axios.get(
         `https://pixabay.com/api/?key=${API_KEY}&q=${query}&page=${page}&per_page=21`
       );
-      setItems(data.hits);
-      setPageCount(Math.ceil(data.totalHits / 21));
+      if (data.totalHits) {
+        setItems(data.hits);
+        setPageCount(Math.ceil(data.totalHits / 21));
+        setError(false);
+      } else {
+        setError(true);
+      }
+
+      setLoading(false);
     };
     fetchItems();
-    setLoading(false);
   }, [API_KEY, query, page]);
 
   // Input Query Handler
@@ -45,9 +53,14 @@ const Items = () => {
     <>
       <SearchInput inputHandler={inputHandler} />
       {loading ? (
-        <h2 className='text-center text-3xl'>Loading...</h2>
+        <h2 className='text-center text-2xl'>Loading...</h2>
       ) : (
         <>
+          {error && (
+            <div className='flex justify-center mb-5'>
+              <h3 className='text-red-500 text-2xl'>Not Found!</h3>
+            </div>
+          )}
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10'>
             {items.map((item) => (
               <Item
